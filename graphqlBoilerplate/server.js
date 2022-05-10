@@ -4,15 +4,24 @@ var { buildSchema } = require('graphql');
 const cors = require( `cors` );
 // Construct a schema, using GraphQL schema language
 var schema = buildSchema(`
+
+  type helloReturnObject {
+    userName: String
+    userGreeting: String
+  }
+
   type Query {
-    hello(userName:String!): String,
+    hello(userName:String!): helloReturnObject,
     rollDice: Int
   }
 `);
 // The root provides a resolver function for each API endpoint
 var root = {
   hello: (args) => {
-    return `Hello ${args.userName}`;
+    return {
+      userName: args.userName,
+      userGreeting: `Hello ${args.userName}`
+    }
   },
   rollDice: () => {
     return Math.floor(Math.random() * 6) + 1;
