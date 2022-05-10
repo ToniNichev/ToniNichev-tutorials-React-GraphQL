@@ -14,7 +14,9 @@ import styles from './styles.scss';
 const GET_QUERY = gql`
 query 
 {
-  hello(userName: "Toni")
+  hello(userName: "Toni") {
+    userGreeting
+  }
 }
 `
 
@@ -25,7 +27,7 @@ const PageOne = () => (
       if (error) return <div>Error!</div>;
       return (
         <div>
-            <span>hello: {data.hello}</span>
+            <span>hello: {data.hello.userGreeting}</span>
         </div>
       )
     }}
